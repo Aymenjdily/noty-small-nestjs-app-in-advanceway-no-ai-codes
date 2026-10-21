@@ -1,98 +1,191 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# 📝 Noty
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+**A secure, hand-crafted notes API — written line by line, no AI-generated code.**
 
-## Description
+![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)
+![Better Auth](https://img.shields.io/badge/Better_Auth-000000?style=for-the-badge&logoColor=white)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Features](#-features) · [Tech Stack](#-tech-stack) · [Getting Started](#-getting-started) · [API](#-api-reference) · [Structure](#-project-structure)
 
-## Project setup
+</div>
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+## ✨ Features
 
-```bash
-# development
-$ npm run start
+- 🔐 **Authentication** — email & password sign-up / sign-in with secure session cookies via Better Auth
+- 🛡️ **Protected by default** — a global auth guard locks every route; public routes must be opened explicitly
+- 👤 **Per-user isolation** — every query is scoped to the note's owner, so users can never reach each other's data
+- ✅ **Strict validation** — DTOs with whitelisting, unknown-field rejection and length limits
+- 🗄️ **Type-safe database** — Drizzle ORM schema with versioned SQL migrations
+- 🧩 **Clean architecture** — modular NestJS design with dependency injection
 
-# watch mode
-$ npm run start:dev
+## 🧰 Tech Stack
 
-# production mode
-$ npm run start:prod
-```
+| Layer          | Technology                                   |
+| -------------- | -------------------------------------------- |
+| Framework      | [NestJS 11](https://nestjs.com)              |
+| Language       | TypeScript                                   |
+| Database       | PostgreSQL                                   |
+| ORM            | [Drizzle ORM](https://orm.drizzle.team)      |
+| Authentication | [Better Auth](https://www.better-auth.com)   |
+| Validation     | class-validator · class-transformer          |
+| Testing        | Jest · Supertest                             |
 
-## Run tests
+## 🚀 Getting Started
 
-```bash
-# unit tests
-$ npm run test
+### Prerequisites
 
-# e2e tests
-$ npm run test:e2e
+- Node.js 20+
+- A PostgreSQL database (local, Neon, Supabase…)
 
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 1. Install
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+git clone <your-repo-url> noty
+cd noty
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 2. Configure
 
-## Resources
+Create a `.env.local` file in the project root:
 
-Check out a few resources that may come in handy when working with NestJS:
+```env
+BETTER_AUTH_SECRET=your-long-random-secret
+BETTER_AUTH_URL=http://localhost:3000
+DATABASE_URL=postgresql://user:password@localhost:5432/noty
+DATABASE_URL_POOLED=postgresql://user:password@localhost:5432/noty
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+> 💡 Generate a secret with `openssl rand -base64 32`
 
-## Support
+### 3. Migrate
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm run db:migrate
+```
 
-## Stay in touch
+### 4. Run
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm run start:dev
+```
 
-## License
+The API is now live at **http://localhost:3000** 🎉
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 📡 API Reference
+
+### Auth — handled by Better Auth
+
+| Method | Endpoint                   | Description              |
+| ------ | -------------------------- | ------------------------ |
+| `POST` | `/api/auth/sign-up/email`  | Create an account        |
+| `POST` | `/api/auth/sign-in/email`  | Log in (sets cookie)     |
+| `POST` | `/api/auth/sign-out`       | Log out                  |
+| `GET`  | `/api/auth/get-session`    | Current session          |
+
+### User
+
+| Method | Endpoint | Auth | Description          |
+| ------ | -------- | :--: | -------------------- |
+| `GET`  | `/`      |  —   | Health check         |
+| `GET`  | `/me`    |  🔒  | Current user profile |
+
+### Notes
+
+| Method   | Endpoint     | Auth | Description           |
+| -------- | ------------ | :--: | --------------------- |
+| `GET`    | `/notes`     |  🔒  | List your notes       |
+| `GET`    | `/notes/:id` |  🔒  | Get a single note     |
+| `POST`   | `/notes`     |  🔒  | Create a note         |
+| `PATCH`  | `/notes/:id` |  🔒  | Update a note         |
+| `DELETE` | `/notes/:id` |  🔒  | Delete a note         |
+
+<details>
+<summary><b>Example: create a note</b></summary>
+
+```http
+POST /notes
+Content-Type: application/json
+Cookie: better-auth.session_token=...
+
+{
+  "title": "Groceries",
+  "content": "Milk, eggs, coffee"
+}
+```
+
+```json
+{
+  "id": 1,
+  "userId": "u_8f3k...",
+  "title": "Groceries",
+  "content": "Milk, eggs, coffee",
+  "createdAt": "2026-10-21T18:00:00.000Z",
+  "updatedAt": "2026-10-21T18:00:00.000Z"
+}
+```
+
+| Field     | Type   | Rules                       |
+| --------- | ------ | --------------------------- |
+| `title`   | string | required, max 120 chars     |
+| `content` | string | optional, max 10,000 chars  |
+
+</details>
+
+## 📁 Project Structure
+
+```
+src/
+├── auth/
+│   └── auth.ts              # Better Auth configuration
+├── db/
+│   ├── auth-schema.ts       # user, session, account, verification tables
+│   ├── notes-schema.ts      # notes table
+│   ├── drizzle.db.module.ts # global DB provider
+│   └── index.ts             # connection pool
+├── notes/
+│   ├── dto/                 # validated request bodies
+│   ├── notes.controller.ts
+│   ├── notes.service.ts
+│   └── notes.module.ts
+├── app.module.ts
+└── main.ts
+drizzle/                     # generated SQL migrations
+```
+
+## 🛠️ Scripts
+
+| Command               | Description                    |
+| --------------------- | ------------------------------ |
+| `npm run start:dev`   | Start in watch mode            |
+| `npm run build`       | Compile to `dist/`             |
+| `npm run start:prod`  | Run the compiled build         |
+| `npm test`            | Run unit tests                 |
+| `npm run test:e2e`    | Run end-to-end tests           |
+| `npm run lint`        | Lint and auto-fix              |
+| `npm run db:generate` | Generate a migration from schema |
+| `npm run db:migrate`  | Apply migrations               |
+| `npm run db:studio`   | Open Drizzle Studio            |
+
+## 🗺️ Roadmap
+
+- [ ] Rate limiting with `@nestjs/throttler`
+- [ ] Security headers with `helmet` and CORS config
+- [ ] Email verification
+- [ ] Full unit & e2e test coverage
+- [ ] Frontend client
+
+---
+
+<div align="center">
+
+Built with ☕ and focus by **Aymen Jdily** — every line written by hand.
+
+</div>
